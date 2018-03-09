@@ -6,7 +6,7 @@ import {
   TypeChainContract,
   promisify,
   ITxParams,
-  IPayableTxParams,
+  // IPayableTxParams,
   DeferredTransactionWrapper
 } from "./typechain-runtime";
 
