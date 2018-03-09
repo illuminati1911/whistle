@@ -6,11 +6,12 @@ const appStyles = require("./App.css");
 const logo = require("./whistle.svg");
 
 import MetaWallet from "./components/MetaWallet";
-//import SendMessages from "./components/SendMessages";
+import SendMessages from "./components/SendMessages";
 import ReadMessages from "./components/ReadMessages";
 
 interface IAppState {
   web3: Web3;
+  pageIsSendMessages: boolean;
 }
 
 class App extends React.Component<{}, IAppState> {
@@ -18,13 +19,28 @@ class App extends React.Component<{}, IAppState> {
     super(props);
     this.state = {
       web3: null,
+      pageIsSendMessages: true,
     };
+    this.setPageToRead.bind(this)
+    this.setPageToSend.bind(this)
   }
 
   public async componentWillMount() {
     const web3 = await getWeb3();
     this.setState({
       web3,
+    });
+  }
+
+  public setPageToSend() {
+    this.setState((prevState) => {
+      return {web3: prevState.web3, pageIsSendMessages: true};
+    });
+  }
+
+  public setPageToRead() {
+    this.setState((prevState) => {
+      return {web3: prevState.web3, pageIsSendMessages: false};
     });
   }
 
@@ -36,14 +52,14 @@ class App extends React.Component<{}, IAppState> {
           <h2>Whistle - Service for publishing sensitive data</h2>
         </div>
         <div>
-          <button className={appStyles.menuButton}>Send</button>
-          <button className={appStyles.menuButton}>Read</button>
+          <button onClick={this.setPageToSend} className={appStyles.menuButton}>Send</button>
+          <button onClick={this.setPageToRead} className={appStyles.menuButton}>Read</button>
         </div>
         <div className={appStyles.appIntro}>
           
         </div>
         <hr />
-        <ReadMessages/>
+        {this.state.pageIsSendMessages ? <SendMessages/> : <ReadMessages/>}
         {this.state.web3 ? null : <MetaWallet web3={this.state.web3} />}
       </div>
     );
