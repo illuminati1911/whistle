@@ -6,7 +6,8 @@ const appStyles = require("./App.css");
 const logo = require("./whistle.svg");
 
 import MetaWallet from "./components/MetaWallet";
-import MessageField from "./components/MessageField";
+//import SendMessages from "./components/SendMessages";
+import ReadMessages from "./components/ReadMessages";
 
 interface IAppState {
   web3: Web3;
@@ -42,8 +43,8 @@ class App extends React.Component<{}, IAppState> {
           
         </div>
         <hr />
-        <MessageField />
-        {this.state.web3 ? <MetaWallet web3={this.state.web3} /> : null}
+        <ReadMessages/>
+        {this.state.web3 ? null : <MetaWallet web3={this.state.web3} />}
       </div>
     );
   }

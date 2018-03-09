@@ -2,7 +2,7 @@ import * as React from "react";
 
 const appStyles = require("../App.css");
 
-export default class MessageField extends React.Component {
+export default class SendMessages extends React.Component {
     constructor(props) {
       super(props);
       /*this.state = {
@@ -42,12 +42,13 @@ export default class MessageField extends React.Component {
     public render() {
       return (
       <div className={appStyles.messageSendingUI} >
+        <h3>Receivers public key for cryptography:</h3>
+        <input className={appStyles.titleInput} type="text" />
         <h2>Title:</h2>
         <input className={appStyles.titleInput} type="text" />
         <h2>Message:</h2>
         <textarea className={appStyles.messageInput} />
-        <h3>Public key for cryptography:</h3>
-        <input className={appStyles.titleInput} type="text" />
+        <div><button className={appStyles.sendButton}>Send message to Whistle!</button></div>
       </div>
       );
     }
