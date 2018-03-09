@@ -1,4 +1,8 @@
-const MetaCoin = artifacts.require("./MetaCoin.sol");
+import * as aaoo from "../src/contract-interfaces/WhistleMessage";
+
+declare var contract: any;
+declare var artifacts: any;
+const MetaCoin = artifacts.require("./WhistleMessage.sol");
 
 contract('MetaCoin', accounts => {
   it("should put 10000 MetaCoin in the first account", () => {

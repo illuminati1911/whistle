@@ -6,8 +6,8 @@ const appStyles = require("./App.css");
 const logo = require("./whistle.svg");
 
 import MetaWallet from "./components/MetaWallet";
-import SendMessages from "./components/SendMessages";
 import ReadMessages from "./components/ReadMessages";
+import SendMessages from "./components/SendMessages";
 
 interface IAppState {
   web3: Web3;
@@ -55,11 +55,9 @@ class App extends React.Component<{}, IAppState> {
           <button onClick={this.setPageToSend} className={appStyles.menuButton}>Send</button>
           <button onClick={this.setPageToRead} className={appStyles.menuButton}>Read</button>
         </div>
-        <div className={appStyles.appIntro}>
-          
-        </div>
+        <div className={appStyles.appIntro} />
         <hr />
-        {this.state.pageIsSendMessages ? <SendMessages/> : <ReadMessages/>}
+        {this.state.pageIsSendMessages ? <SendMessages web3={this.state.web3}/> : <ReadMessages/>}
         {this.state.web3 ? null : <MetaWallet web3={this.state.web3} />}
       </div>
     );
