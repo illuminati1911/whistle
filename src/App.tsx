@@ -57,7 +57,7 @@ class App extends React.Component<{}, IAppState> {
         </div>
         <div className={appStyles.appIntro} />
         <hr />
-        {this.state.pageIsSendMessages ? <SendMessages web3={this.state.web3}/> : <ReadMessages/>}
+        {this.state.pageIsSendMessages && this.state.web3 ? <SendMessages web3={this.state.web3}/> : <ReadMessages/>}
         {this.state.web3 ? null : <MetaWallet web3={this.state.web3} />}
       </div>
     );
