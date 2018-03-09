@@ -21,8 +21,8 @@ class App extends React.Component<{}, IAppState> {
       web3: null,
       pageIsSendMessages: true,
     };
-    this.setPageToRead.bind(this)
-    this.setPageToSend.bind(this)
+    this.setPageToRead = this.setPageToRead.bind(this)
+    this.setPageToSend = this.setPageToSend.bind(this)
   }
 
   public async componentWillMount() {
