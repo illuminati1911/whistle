@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as Web3 from "web3";
-// import {WhistleMessage} from "../contract-interfaces/WhistleMessage";
+import {WhistleMessage} from "../contract-interfaces/WhistleMessage";
 
 const appStyles = require("../App.css");
 
@@ -26,6 +26,7 @@ export default class SendMessages extends React.Component<ISendMessagesProps, IS
     this.updateMessage = this.updateMessage.bind(this);
     this.updateAddress = this.updateAddress.bind(this);
     this.updateTitle = this.updateTitle.bind(this);
+    this.sendToBlockChain = this.sendToBlockChain.bind(this);
   }
 
   public async componentWillMount() {
@@ -36,7 +37,6 @@ export default class SendMessages extends React.Component<ISendMessagesProps, IS
         });
         return;
       }
-    // const whistleMessageInstance = await WhistleMessage.createAndValidate(this.props.web3, "0x0");
   }
 
   public updateMessage(evt: any) {
@@ -54,6 +54,15 @@ export default class SendMessages extends React.Component<ISendMessagesProps, IS
       title: evt.target.value,
     });
   }
+  public async sendToBlockChain() {
+    console.log("account " + this.props.web3.eth.accounts[0]);
+    const whistleMessageInstance = await WhistleMessage.createAndValidate(this.props.web3,
+      "0x345ca3e014aaf5dca488057592ee47305d9b3e10");
+    const messageTx = await whistleMessageInstance.addMessageTx(
+      this.state.address, this.state.title, this.state.message);
+    const result = await messageTx.send({ from: this.props.web3.eth.accounts[0]});
+    console.log(result);
+  }
   public render() {
     const {error} = this.state;
     return (
@@ -66,7 +75,7 @@ export default class SendMessages extends React.Component<ISendMessagesProps, IS
         <h2>Message:</h2>
         <textarea className={appStyles.messageInput} onChange={this.updateMessage} />
         <div>
-          <button className={appStyles.sendButton}>
+          <button className={appStyles.sendButton} onClick={this.sendToBlockChain} >
             Send message to Whistle!
           </button>
         </div>
