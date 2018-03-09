@@ -1,5 +1,5 @@
-const MetaCoin = artifacts.require("./MetaCoin.sol");
+const WhistleMessage = artifacts.require("./WhistleMessage.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(MetaCoin);
+  deployer.deploy(WhistleMessage);
 };
