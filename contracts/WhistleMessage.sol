@@ -13,27 +13,31 @@ contract WhistleMessage {
     }
 	mapping(address => MessageCollection) private messages;
 
-	function getMessages(address addr)
+	function getNumberOfMessages(address receiver)
+		public
+		view
+		returns (uint)
+	{
+		return messages[receiver].counter;
+	}
+
+	function getMessage(address receiver, uint id)
 	    public
 	    view
-	    returns (Message[])
+	    returns (address,string,string,uint)
     { 
-		var messageColl = messages[addr];
-  	    var result = new Message[](messageColl.counter);
-		for (uint i = 0; i < messageColl.counter;  i++) {
-			result[i] = messageColl.messages[i];
-		}
-		return result;
+		Message memory message = messages[receiver].messages[id];
+		return (message.sender, message.title, message.message, message.timestamp);
 	}
 
 	function addMessage(address receiver, string title, string message)
 		public
-		returns (Message) 
+		returns (address,string,string,uint) 
 	{
-		var newMessage = Message(msg.sender,title,message,block.timestamp);
-		var currentMessages = messages[receiver];
+		Message memory newMessage = Message(msg.sender,title,message,block.timestamp);
+		MessageCollection storage currentMessages = messages[receiver];
 		currentMessages.messages[currentMessages.counter] = newMessage;
 		currentMessages.counter++;
-		return newMessage;
+		return (newMessage.sender, newMessage.title, newMessage.message, newMessage.timestamp);
 	}
 }
